@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_teste_estagiario/pages/fila_page.dart';
+import 'package:flutter_teste_estagiario/pages/pag_fila.dart';
+import 'package:flutter_teste_estagiario/pages/pag_form.dart';
 import 'package:flutter_teste_estagiario/pages/home_page.dart';
 import 'package:flutter_teste_estagiario/pages/pag_api.dart';
-import 'package:flutter_teste_estagiario/pages/pag_form.dart';
-// import 'package:google_nav_bar/google_nav_bar.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -53,9 +52,9 @@ class _MainPageState extends State<MainPage> {
         index: _currentIndex,
         children: const [
           HomePage(),
-          PagForm(),
-          PagLista(),
+          PagFila(),
           PagApi(),
+          PagForm(),
         ],
     ),);
   }

@@ -1,6 +1,6 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
+
+final _formKey = GlobalKey<FormState>();
 
 class PagForm extends StatefulWidget {
   const PagForm({super.key});
@@ -10,104 +10,76 @@ class PagForm extends StatefulWidget {
 }
 
 class _PagFormState extends State<PagForm> {
+
+  TextEditingController _controllerNome = TextEditingController();
+  TextEditingController _controllerEmail = TextEditingController();
+  TextEditingController _controllerSenha = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: ListView(
-          shrinkWrap: true,
+    return Padding(
+      padding: const EdgeInsets.all(20),
+      child: Form(
+        key: _formKey,
+        child: Column(
           children: [
-            SizedBox(
-              height: 80,
-              child: IconButton(
-                icon: Icon(Icons.person, color: Colors.blue, size: 50),
-                onPressed:() => showDialog(context: context,
-                builder: (context) => AlertDialog(
-                  title: Text('Ícone selecionado:'),
-                  content: Icon(Icons.person, size: 50, color: Colors.blue),
-                  actions: [
-                    TextButton(
-                      onPressed: () => Navigator.pop(context),
-                      child: Text('Fechar'),
-                    ),
-                  ],
-                ),
-                ),
+            TextFormField(
+              controller: _controllerNome,
+              decoration: const InputDecoration(
+                labelText: 'Nome',
+                border: OutlineInputBorder(),
               ),
+              validator: (valueNome) {
+                if (valueNome == null || valueNome.isEmpty) {
+                  return 'Você precisa digitar um nome!';
+                }
+                return null;
+              },
             ),
-            SizedBox(
-              height: 80,
-              child: IconButton(
-                icon: Icon(Icons.radio, color: Colors.blue, size: 50),
-                onPressed:() => showDialog(context: context,
-                builder: (context) => AlertDialog(
-                  title: Text('Ícone selecionado:'),
-                  content: Icon(Icons.radio, size: 50, color: Colors.blue),
-                  actions: [
-                    TextButton(
-                      onPressed: () => Navigator.pop(context),
-                      child: Text('Fechar'),
-                    ),
-                  ],
-                ),
-                ),
+            const SizedBox(height: 20),
+            TextFormField(
+              controller: _controllerEmail,
+              decoration: const InputDecoration(
+                labelText: 'E-mail',
+                border: OutlineInputBorder(),
               ),
+              validator: (valueEmail) {
+                if (valueEmail == null || valueEmail.isEmpty) {
+                  return 'Você precisa digitar um e-mail!';
+                }
+                return null;
+              },
             ),
-            SizedBox(
-              height: 80,
-              child: IconButton(
-                icon: Icon(Icons.music_note, color: Colors.blue, size: 50),
-                onPressed:() => showDialog(context: context,
-                builder: (context) => AlertDialog(
-                  title: Text('Ícone selecionado:'),
-                  content: Icon(Icons.music_note, size: 50, color: Colors.blue),
-                  actions: [
-                    TextButton(
-                      onPressed: () => Navigator.pop(context),
-                      child: Text('Fechar'),
-                    ),
-                  ],
-                ),
-                ),
+            const SizedBox(height: 20),
+            TextFormField(
+              controller: _controllerSenha,
+              obscureText: true,
+              decoration: const InputDecoration(
+                labelText: 'Senha',
+                border: OutlineInputBorder(),
               ),
+              validator: (valueSenha) {
+                if (valueSenha == null || valueSenha.isEmpty) {
+                  return 'Você precisa digitar uma senha!';
+                }
+                return null;
+              },
             ),
-            SizedBox(
-              height: 80,
-              child: IconButton(
-                icon: Icon(Icons.gamepad, color: Colors.blue, size: 50),
-                onPressed:() => showDialog(context: context,
-                builder: (context) => AlertDialog(
-                  title: Text('Ícone selecionado:'),
-                  content: Icon(Icons.gamepad, size: 50, color: Colors.blue),
-                  actions: [
-                    TextButton(
-                      onPressed: () => Navigator.pop(context),
-                      child: Text('Fechar'),
-                    ),
-                  ],
-                ),
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 80,
-              child: IconButton(
-                icon: Icon(Icons.flutter_dash, color: Colors.blue, size: 50),
-                onPressed:() => showDialog(context: context,
-                builder: (context) => AlertDialog(
-                  title: Text('Ícone selecionado:'),
-                  content: Icon(Icons.flutter_dash, size: 50, color: Colors.blue),
-                  actions: [
-                    TextButton(
-                      onPressed: () => Navigator.pop(context),
-                      child: Text('Fechar'),
-                    ),
-                  ],
-                ),
-                ),
-              ),
-            ),
-          ],
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                var nome = _controllerNome.text;
+                var email = _controllerEmail.text;
+                var senha = _controllerSenha.text;
+
+                if (_formKey.currentState!.validate()) {
+                  print(nome);
+                  print(email);
+                  print(senha);
+              }
+              },
+              child: const Text('Olhe o console!'),
+            ),],
         ),
       ),
     );
