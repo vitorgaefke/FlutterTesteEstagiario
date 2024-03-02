@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_teste_estagiario/pages/fila_page.dart';
+import 'package:flutter_teste_estagiario/pages/home_page.dart';
+import 'package:flutter_teste_estagiario/pages/pag_api.dart';
+import 'package:flutter_teste_estagiario/pages/pag_form.dart';
+// import 'package:google_nav_bar/google_nav_bar.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -8,37 +13,49 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  int _currentIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('G A E F K E'), centerTitle: true),
-      body: Center(
-        child: ElevatedButton(
-          child: const Text('Não clique aqui!'),
-          onPressed: (){},
-        )
-        ),
       bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
+        type: BottomNavigationBarType.fixed,
+        currentIndex: _currentIndex,
+        backgroundColor: Colors.blue,
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
+        items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            backgroundColor: Colors.blue,
-            label: 'home',
+            label: '1',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.list),
-            label: 'lista',
+            label: '2',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.wifi),
-            label: 'API',
+            icon: Icon(Icons.api),
+            label: '3',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.tab),
-            label: 'form',
+            icon: Icon(Icons.person),
+            label: '4',
           ),
         ],
-      )
-    );
+      ),
+      backgroundColor: Colors.grey[200],
+      appBar: AppBar(title: const Text('G A E F K E'), centerTitle: true),
+      body: IndexedStack(
+        index: _currentIndex,
+        children: const [
+          HomePage(),
+          PagForm(),
+          PagLista(),
+          PagApi(),
+        ],
+    ),);
   }
 }
